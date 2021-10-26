@@ -1,0 +1,37 @@
+.characters-page {
+    height: 100vh;
+    background-image: url('../../../images/Bg.png');
+    background-size: cover;
+}
+.container {
+    max-width: 1274px;
+    margin: 0 auto;
+    padding-top: 267px;
+}
+.form__filter {
+    display: flex;
+    position: relative;
+}
+.cards__container {
+    display: flex;
+    overflow: hidden;
+}
+.gender {
+    display: flex;
+    justify-content: space-between;
+}
+.race {
+    display: flex;
+    justify-content: space-between;
+}
+.side {
+    display: flex;
+    justify-content: space-between;
+}
+.character-date span {
+    display: block;
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 40px;
+}

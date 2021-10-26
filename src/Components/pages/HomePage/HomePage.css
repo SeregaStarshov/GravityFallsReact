@@ -1,0 +1,48 @@
+.main {
+    height: 100vh;
+    background-image: url('../../../images/bg_1.jpg');
+    background-size: cover;
+}
+.container {
+    max-width: 1274px;
+    margin: 0 auto;
+    padding-top: 267px;
+}
+.title {
+    font-weight: bold;
+    font-size: 72px;
+    line-height: 80px;
+    color: #ffffff;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 3px;
+}
+.home-page__title {
+    max-width: 600px;
+    padding-bottom: 25px;
+}
+.home-page__subtitle {
+    padding-bottom: 69px;
+    max-width: 549px;
+}
+.subtitle {
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: #ffffff;
+    text-shadow: 0px 0px 0px #000000;
+}
+.main__button {
+    background: #e8bd55;
+    border-radius: 8px;
+    padding: 18.5px 56px;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+    cursor: pointer;
+}
+.main__button:hover {
+    background: #f2ae0a;
+}
+.main__button:active {
+    background: #ff9e00;
+}

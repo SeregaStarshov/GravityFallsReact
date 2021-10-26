@@ -1,0 +1,8 @@
+.header {
+    background: linear-gradient(180deg, #e8bd55 0%, #f2ae0a 0.01%, #e9bb4c 52.08%, #e9bb4c 90.62%);
+    padding: 13px 40px 8px 40px;
+}
+.header__wrap {
+    display: flex;
+    align-items: center;
+}
