@@ -1,42 +1,16 @@
 import React, { FC } from 'react';
 
 import './CharactersPage.css';
+import { dataCards } from './dataCards';
 import Icon from '../../../images/icon.png';
 
 import CreateButtonAdd from './addBtn/ButtonAdd';
 import Cards from './cards/Cards';
+import { dataSelectList } from './dataSelectList';
 import CreateInput from './input/Input';
 import PaginationBlock from './pagination/PaginationBlock';
 import CreateSelect from './select/Select';
-
-export type Gender = {
-  id: number;
-  gender: string;
-  date: {
-    men: string;
-    women: string;
-    undefined: string;
-  };
-};
-
-interface Rice {
-  id: number;
-  rice: string;
-  date: {
-    man: string;
-    monster: string;
-    unknown: string;
-  };
-}
-
-interface Side {
-  id: number;
-  side: string;
-  date: {
-    discipline: string;
-    chaos: string;
-  };
-}
+import SelectList from './select/selectList/SelectList';
 
 export type Button = {
   id: number;
@@ -45,35 +19,6 @@ export type Button = {
 };
 
 const CreateCharactersPage: FC = (): React.ReactElement => {
-  const gender: Gender = {
-    id: 1,
-    gender: 'Пол',
-    date: {
-      men: 'Мужской',
-      women: 'Женский',
-      undefined: 'Неопределен',
-    },
-  };
-
-  const rice: Rice = {
-    id: 2,
-    rice: 'Раса',
-    date: {
-      man: 'Человек',
-      monster: 'Монстр',
-      unknown: 'Неизвестно',
-    },
-  };
-
-  const side: Side = {
-    id: 3,
-    side: 'Сторона',
-    date: {
-      discipline: 'Порядок',
-      chaos: 'Хаос',
-    },
-  };
-
   const button: Button = {
     id: 4,
     type: 'button',
@@ -89,17 +34,22 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
               <CreateInput />
             </div>
             <div className="form__filter">
-              <CreateSelect icon={Icon} />
-              <CreateSelect icon={Icon} />
-              <CreateSelect icon={Icon} />
+              {dataSelectList.data.map((item, index) => {
+                return (
+                  <>
+                    <SelectList key={index} item={item} />
+                    <CreateSelect key={item.id} icon={Icon} name={item.title} />
+                  </>
+                );
+              })}
               <CreateButtonAdd text={'Добавить  +'} />
             </div>
           </form>
         </div>
         <div className="cards__container">
-          <Cards />
-          <Cards />
-          <Cards />
+          {dataCards.map((item, index) => {
+            return <Cards key={index} item={item} />;
+          })}
         </div>
         <PaginationBlock />
       </div>

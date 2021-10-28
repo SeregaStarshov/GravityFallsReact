@@ -13,6 +13,8 @@
     border-style: none;
     text-align: inherit;
     max-height: 36px;
+    display: flex;
+    justify-content: space-between;
 }
 .button-select:not(:last-child) {
     margin-right: 15px;

@@ -11,6 +11,18 @@
     background: url('../../../../images/Ellipse.png') no-repeat;
     background-size: cover;
 }
+.character-picture h1 {
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 2px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 50px;
+    letter-spacing: 0.03em;
+    margin-left: 27px;
+    margin-bottom: 21px;
+    max-width: 300px;
+}
 .character-date {
     background-color: #d9335e;
     padding: 17px 27px;

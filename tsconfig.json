@@ -16,5 +16,5 @@
       "noImplicitAny": false,
       "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "index.d.ts"]
+    "include": ["src", "index.d.ts", "src/Components/pages/CharactersPage/dataCards.ts"]
   }
