@@ -1,5 +1,6 @@
-import React, { FC } from "react";
-import "./HomePage.css";
+import React, { FC } from 'react';
+import './HomePage.css';
+import { Link } from 'react-router-dom';
 
 const CreateHomePage: FC<{ title: string; subtitle: string; textBtn: string }> = (props): React.ReactElement => {
   return (
@@ -12,9 +13,9 @@ const CreateHomePage: FC<{ title: string; subtitle: string; textBtn: string }> =
           <p className="subtitle">{props.subtitle}</p>
         </div>
         <div className="start">
-          <button className="main__button" value={props.textBtn}>
+          <Link className="main__button" to={'/characters'} style={{ textDecoration: 'none' }}>
             {props.textBtn}
-          </button>
+          </Link>
         </div>
       </div>
     </main>

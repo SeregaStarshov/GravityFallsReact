@@ -1,6 +1,6 @@
-import React from "react";
-import "../Menu/Menu.css";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import '../Menu/Menu.css';
+import { NavLink } from 'react-router-dom';
 
 interface Menu {
   id: number;
@@ -12,13 +12,13 @@ const CreateMenu: React.FC = (): React.ReactElement => {
   const menu: Menu[] = [
     {
       id: 1,
-      value: "Главная",
-      href: "/",
+      value: 'Главная',
+      href: '/',
     },
     {
       id: 2,
-      value: "Персонажи",
-      href: "/characters",
+      value: 'Персонажи',
+      href: '/characters',
     },
   ];
 

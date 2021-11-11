@@ -1,29 +1,34 @@
 import React, { FC } from 'react';
 
 import './CharactersPage.css';
-import { dataCards } from './dataCards';
 import Icon from '../../../images/icon.png';
+import { useAppSelector } from '../../../store/store';
 
 import CreateButtonAdd from './addBtn/ButtonAdd';
 import Cards from './cards/Cards';
-import { dataSelectList } from './dataSelectList';
 import CreateInput from './input/Input';
 import PaginationBlock from './pagination/PaginationBlock';
 import CreateSelect from './select/Select';
 import SelectList from './select/selectList/SelectList';
 
-export type Button = {
-  id: number;
-  type: string;
-  value: string;
-};
+// export type Button = {
+//   id: number;
+//   type: string;
+//   value: string;
+// };
 
 const CreateCharactersPage: FC = (): React.ReactElement => {
-  const button: Button = {
-    id: 4,
-    type: 'button',
-    value: 'Добавить   +',
-  };
+  // const button: Button = {
+  //   id: 4,
+  //   type: 'button',
+  //   value: 'Добавить   +',
+  // };
+
+  const dataCards = useAppSelector((state) => state.cards.dataCards);
+  const selectList = useAppSelector((state) => state.selectList.data);
+  const start = useAppSelector((state) => state.cards.startIndex);
+  const end = useAppSelector((state) => state.cards.endIndex);
+  const newDataCards = dataCards.slice(start, end);
 
   return (
     <main className="characters-page">
@@ -34,11 +39,11 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
               <CreateInput />
             </div>
             <div className="form__filter">
-              {dataSelectList.data.map((item, index) => {
+              {selectList.map((item, index) => {
                 return (
                   <>
-                    <SelectList key={index} item={item} />
-                    <CreateSelect key={item.id} icon={Icon} name={item.title} />
+                    <SelectList key={index} item={item} index={index} />
+                    <CreateSelect key={item.id} icon={Icon} index={index} name={item.title} />
                   </>
                 );
               })}
@@ -47,11 +52,11 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
           </form>
         </div>
         <div className="cards__container">
-          {dataCards.map((item, index) => {
+          {newDataCards.map((item, index) => {
             return <Cards key={index} item={item} />;
           })}
         </div>
-        <PaginationBlock />
+        <PaginationBlock start={start} end={end} dataCards={dataCards} />
       </div>
     </main>
   );

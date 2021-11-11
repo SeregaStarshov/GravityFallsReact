@@ -1,0 +1,14 @@
+.pagination-punkt {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+}
+.pagination-punkt:not(:last-child) {
+    margin-right: 40px;
+}
+
+.active-punkt {
+    background:#E8BD55;
+}

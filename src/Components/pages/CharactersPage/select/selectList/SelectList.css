@@ -1,7 +1,7 @@
 .options {
     position: relative;
     top: 37px;
-    /* display: none; */
+    display: none;
     margin-top: 16px;
     z-index: 5;
 }
@@ -26,4 +26,7 @@
 }
 .active {
     display: block;
+}
+.disable {
+    display: none;
 }

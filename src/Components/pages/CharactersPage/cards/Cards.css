@@ -8,7 +8,7 @@
     margin-right: 20px;
 }
 .character-picture {
-    background: url('../../../../images/Ellipse.png') no-repeat;
+    position: relative;
     background-size: cover;
 }
 .character-picture h1 {
@@ -19,12 +19,14 @@
     font-size: 48px;
     line-height: 50px;
     letter-spacing: 0.03em;
-    margin-left: 27px;
-    margin-bottom: 21px;
+    margin-left: 22px;
+    margin-bottom: 15px;
     max-width: 300px;
+    position: absolute;
+    bottom: 0;
 }
 .character-date {
-    background-color: #d9335e;
+    /* background-color: #d9335e; */
     padding: 17px 27px;
     border-radius: 0px 0px 6px 6px;
 }
