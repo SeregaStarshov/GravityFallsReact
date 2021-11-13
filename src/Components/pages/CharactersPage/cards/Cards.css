@@ -3,6 +3,7 @@
     max-width: 410px;
     margin-top: 52px;
     border-radius: 10px 10px 6px 6px;
+    cursor: pointer;
 }
 .character-card:not(:last-child) {
     margin-right: 20px;
@@ -26,7 +27,6 @@
     bottom: 0;
 }
 .character-date {
-    /* background-color: #d9335e; */
     padding: 17px 27px;
     border-radius: 0px 0px 6px 6px;
 }

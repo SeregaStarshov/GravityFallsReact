@@ -1,29 +1,27 @@
 import React, { FC } from 'react';
 
 import './CharactersPage.css';
-import Icon from '../../../images/icon.png';
-import { useAppSelector } from '../../../store/store';
+import { useHistory, useParams } from 'react-router-dom';
+
+import Icon from '../../../images/Icon.png';
+import { closeSelectList } from '../../../store/dataSelectList/dataSelectList.slice';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
 
 import CreateButtonAdd from './addBtn/ButtonAdd';
 import Cards from './cards/Cards';
 import CreateInput from './input/Input';
+import ModalAddCharacter from './modalAddCharacter/ModalAddCharacter';
+import ModalViewCharacter from './modalViewCharacter/ModalViewCharacter';
 import PaginationBlock from './pagination/PaginationBlock';
 import CreateSelect from './select/Select';
 import SelectList from './select/selectList/SelectList';
 
-// export type Button = {
-//   id: number;
-//   type: string;
-//   value: string;
-// };
-
 const CreateCharactersPage: FC = (): React.ReactElement => {
-  // const button: Button = {
-  //   id: 4,
-  //   type: 'button',
-  //   value: 'Добавить   +',
-  // };
-
+  // const history = useHistory();
+  // const params = useParams();
+  // // console.log(history);
+  // // console.log(params);
+  const dispatch = useAppDispatch();
   const dataCards = useAppSelector((state) => state.cards.dataCards);
   const selectList = useAppSelector((state) => state.selectList.data);
   const start = useAppSelector((state) => state.cards.startIndex);
@@ -31,7 +29,7 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
   const newDataCards = dataCards.slice(start, end);
 
   return (
-    <main className="characters-page">
+    <main className="characters-page" onClick={(): void => dispatch(closeSelectList())}>
       <div className="container">
         <div className="form__wrapper">
           <form className="form__search-characters">
@@ -53,11 +51,13 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
         </div>
         <div className="cards__container">
           {newDataCards.map((item, index) => {
-            return <Cards key={index} item={item} />;
+            return <Cards key={index} item={item} index={index} />;
           })}
         </div>
         <PaginationBlock start={start} end={end} dataCards={dataCards} />
       </div>
+      <ModalViewCharacter />
+      <ModalAddCharacter />
     </main>
   );
 };

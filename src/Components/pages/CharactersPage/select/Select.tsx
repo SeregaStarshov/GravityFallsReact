@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import './Select.css';
-import { gender, rice, side } from '../../../../store/dataSelectList/dataSelectList';
+import { gender, rice, side } from '../../../../store/dataSelectList/dataSelectList.slice';
 import { useAppDispatch } from '../../../../store/store';
 
 const CreateSelect: FC<{ icon: string; index: number; name: string }> = (props): React.ReactElement => {

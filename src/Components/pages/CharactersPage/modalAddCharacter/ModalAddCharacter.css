@@ -1,0 +1,206 @@
+.modal__add-character {
+    width: 1020px;
+    min-height: 720px;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding: 21px 32px 38px 32px;
+    background-color: #E8BD55;
+}
+.wrap-form__add-character {
+    display: flex;
+    justify-content: space-between;
+}
+.wrap-fields__add-character {
+    max-width: 445px;
+}
+.preview__card-character {
+    padding-top: 110px;
+}
+.preview__title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+    color: #494949;
+    margin-bottom: 4px;
+}
+.preview__card {
+    width: 457px;
+    height: 296px;
+    background-color: #FFFFFF;
+    filter: drop-shadow(0px 2px 15px rgba(132, 95, 7, 0.6));
+    margin-bottom: 151px;
+    border-radius: 8px;
+}
+.save {
+    text-align: end;
+}
+.preview__button {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 17px 24px;
+    color: #E9BB4C;
+    background: #494949;
+    border-radius: 8px;
+    border: none;
+}
+.container-characteristics {
+    display: flex;
+}
+.label-characteristic,
+.label_add-name {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+    color: #494949;
+}
+.input-character {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px rgba(50, 50, 71, 0.08);
+    border-radius: 6px;
+    border: none;
+    height: 30px;
+    width: 100%;
+    margin-top: 5px;
+}
+.add-name,
+.container-characteristics {
+    padding-bottom: 15px;
+}
+.input__add-name {
+    width: 100%;
+}
+.label-rice {
+    margin: 0 27px;
+}
+.description {
+    padding-bottom: 15px;
+}
+.description span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+}
+.container-span {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+.text {
+    color: #494949;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+}
+.block-description {
+    width: 100%;
+    height: 144px;
+    resize: none;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px rgba(50, 50, 71, 0.08);
+    border-radius: 6px;
+    border: none;
+}
+.tags {
+    padding-bottom: 20px;
+}
+.add-tags {
+    color: #494949;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.field-tags {
+    width: 100%;
+    resize: none;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px rgba(50, 50, 71, 0.08);
+    border-radius: 6px;
+    border: none;
+    height: 30px;
+}
+.quantity {
+    color: #9E7B26;
+}
+.container__photo-color {
+    display: flex;
+    justify-content: space-between;
+}
+.add-photo {
+    width: 187px;
+    height: 210px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    margin-bottom: 9px;
+    margin-top: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.add {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: #E8BD55;
+    text-align: center;
+}
+.vertical {
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: black;
+}
+.gorizontal {
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: black;
+}
+.buttons-add {
+    display: flex;
+    justify-content: space-between;
+}
+.url__add-photo {
+    background: #FFFFFF;
+    border: 1px solid #494949;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    height: 32px;
+    text-align: center;
+    color: #494949;
+    position: absolute;
+    bottom: 8px;
+}
+.change-button {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #494949;
+    padding: 7px 9.5px;
+    background: #BAAD8D;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.save-button {
+    background: #494949;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 7px 9.5px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: #E8BD55;
+}

@@ -16,7 +16,7 @@ import shmebulok from '../../images/shmebulok.png';
 import stanly from '../../images/stanly.png';
 import vendri from '../../images/vendri.png';
 import zus from '../../images/zus.png';
-import { List } from '../dataSelectList/dataSelectList';
+import { List } from '../dataSelectList/dataSelectList.slice';
 
 export interface Card {
   id: number;
@@ -24,6 +24,7 @@ export interface Card {
   img: string;
   person: List;
   dataPerson: List;
+  tags?: string[];
 }
 
 export interface InitialState {
@@ -31,6 +32,9 @@ export interface InitialState {
   startIndex: number;
   endIndex: number;
   step: number;
+  modalView: boolean;
+  viewModalAddCharacter: boolean;
+  modalCard: Card;
 }
 
 const initialState: InitialState = {
@@ -48,7 +52,9 @@ const initialState: InitialState = {
         gender: 'Женщина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
       id: 2,
@@ -63,7 +69,10 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Человек',
         side: 'Порядок',
+        description:
+          'Диппер — двенадцатилетний мальчик, брат-близнец Мэйбл. Один из главных героев мультсериала.  Он пытается раскрыть тайны городка Гравити Фолз и найти автора дневников. Очень сообразителен и рассудителен, но часто нерешителен. Влюблён в Венди Кордрой. Любит настольную игру под названием «Подземелья, подземелья и ещё подземелья».',
       },
+      tags: ['умный', 'смелый', 'нерешительный'],
     },
     {
       id: 3,
@@ -78,7 +87,9 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Неизвестно',
         side: 'Хаос',
+        description: '',
       },
+      tags: [],
     },
     {
       id: 4,
@@ -93,7 +104,9 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
       id: 5,
@@ -108,7 +121,9 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Монстр',
         side: 'Хаос',
+        description: '',
       },
+      tags: [],
     },
     {
       id: 6,
@@ -123,7 +138,9 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
       id: 7,
@@ -138,7 +155,10 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Человек',
         side: 'Хаос',
+        description:
+          'Диппер — двенадцатилетний мальчик, брат-близнец Мэйбл. Один из главных героев мультсериала.  Он пытается раскрыть тайны городка Гравити Фолз и найти автора дневников. Очень сообразителен и рассудителен, но часто нерешителен. Влюблён в Венди Кордрой. Любит настольную игру под названием «Подземелья, подземелья и ещё подземелья».',
       },
+      tags: [],
     },
     {
       id: 8,
@@ -153,7 +173,9 @@ const initialState: InitialState = {
         gender: 'Женщина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
       id: 9,
@@ -168,10 +190,12 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Монстр',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
-      id: 1,
+      id: 10,
       background: ellipse,
       img: maible,
       person: {
@@ -183,10 +207,12 @@ const initialState: InitialState = {
         gender: 'Женщина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
-      id: 2,
+      id: 11,
       background: ellips_2,
       img: maison,
       person: {
@@ -198,10 +224,12 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
     {
-      id: 3,
+      id: 12,
       background: ellips_3,
       img: bill,
       person: {
@@ -213,10 +241,12 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Неизвестно',
         side: 'Хаос',
+        description: '',
       },
+      tags: [],
     },
     {
-      id: 4,
+      id: 13,
       background: ellipse_4,
       img: stanly,
       person: {
@@ -228,12 +258,31 @@ const initialState: InitialState = {
         gender: 'Мужчина',
         race: 'Человек',
         side: 'Порядок',
+        description: '',
       },
+      tags: [],
     },
   ],
   startIndex: 0,
   endIndex: 3,
   step: 3,
+  modalView: false,
+  viewModalAddCharacter: false,
+  modalCard: {
+    id: 0,
+    background: '',
+    img: '',
+    person: {
+      title: '',
+      titleColor: '',
+    },
+    dataPerson: {
+      color: '',
+      gender: '',
+      race: '',
+      side: '',
+    },
+  },
 };
 export type ActionInterface<Item> = {
   type: string;
@@ -260,10 +309,28 @@ export const outputCards = createSlice({
       state.startIndex = action.payload;
       state.endIndex = action.payload + state.step;
     },
+    viewModal: (state, action: PayloadAction<Card>) => {
+      state.modalView = true;
+      state.modalCard = action.payload;
+    },
+    viewModalAddCharacter: (state) => {
+      state.viewModalAddCharacter = true;
+    },
+    closedModal: (state) => {
+      if (state.modalView) {
+        state.modalView = false;
+      }
+      if (state.viewModalAddCharacter) {
+        state.viewModalAddCharacter = false;
+      }
+    },
   },
 });
 
 export const nextAction = outputCards.actions.nextSlide;
 export const prevAction = outputCards.actions.prevSlide;
 export const clickPunkt = outputCards.actions.clickPunkt;
+export const viewModal = outputCards.actions.viewModal;
+export const viewModalAddCharacter = outputCards.actions.viewModalAddCharacter;
+export const closedModal = outputCards.actions.closedModal;
 export default outputCards.reducer;

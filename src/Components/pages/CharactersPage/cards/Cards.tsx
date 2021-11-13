@@ -2,11 +2,22 @@ import React, { FC } from 'react';
 
 import './Cards.css';
 
-import { Card } from '../../../../store/characterCards/cards.slice';
+import { useHistory } from 'react-router-dom';
 
-const Cards: FC<{ item: Card }> = (props): React.ReactElement => {
+import { Card, viewModal } from '../../../../store/characterCards/cards.slice';
+import { useAppDispatch } from '../../../../store/store';
+
+const Cards: FC<{ item: Card; index: number }> = (props): React.ReactElement => {
+  const dispatch = useAppDispatch();
+  const history = useHistory();
   return (
-    <div className="character-card">
+    <div
+      className="character-card"
+      onClick={(): void => {
+        history.push(`/characters:${props.item.id}`);
+        dispatch(viewModal(props.item));
+      }}
+    >
       <div className="character-picture" style={{ backgroundImage: `url(${props.item.background})` }}>
         <img src={props.item.img}></img>
         <h1 style={{ color: props.item.person.titleColor }}>{props.item.person.title}</h1>

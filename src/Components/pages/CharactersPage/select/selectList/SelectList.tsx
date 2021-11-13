@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import './SelectList.css';
-import { DataSelectList } from '../../../../../store/dataSelectList/dataSelectList';
+import { DataSelectList } from '../../../../../store/dataSelectList/dataSelectList.slice';
 import { useAppSelector } from '../../../../../store/store';
 
 interface PropsItem {
@@ -16,11 +16,11 @@ const SelectList: FC<PropsItem> = (props) => {
     arrayItem.push(props.item.selectList[key]);
   }
   const viewSelectList = (): string => {
-    let a = '';
+    let viewList = '';
     if (props.index === value) {
-      return (a = 'active options');
+      return (viewList = 'active options');
     } else {
-      return (a = 'disable options');
+      return (viewList = 'disable options');
     }
   };
   return (

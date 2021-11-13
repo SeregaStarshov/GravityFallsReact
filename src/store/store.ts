@@ -5,7 +5,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
 
 import { outputCards } from './characterCards/cards.slice';
-import { outputSelectList } from './dataSelectList/dataSelectList';
+import { outputSelectList } from './dataSelectList/dataSelectList.slice';
 
 export const store = configureStore({
   reducer: {
