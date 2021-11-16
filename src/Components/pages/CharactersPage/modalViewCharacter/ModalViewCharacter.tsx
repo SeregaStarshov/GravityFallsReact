@@ -34,27 +34,27 @@ const ModalViewCharacter: FC = (): React.ReactElement => {
         </div>
         <div className="wrap-description-character">
           <div className="description-character">
-            <h2 className="description-character__title" style={{ color: character.person.titleColor }}>
-              {character.person.title}
+            <h2 className="description-character__title" style={{ color: character.nameColor }}>
+              {character.name}
             </h2>
-            <div className="description-character__date" style={{ backgroundColor: character.dataPerson.color }}>
+            <div className="description-character__date" style={{ backgroundColor: character.characteristicsColor }}>
               <div className="gender">
                 <span>Пол</span>
-                <span>{character.dataPerson.gender}</span>
+                <span>{character.gender}</span>
               </div>
               <hr></hr>
               <div className="race">
                 <span>Раса</span>
-                <span>{character.dataPerson.race}</span>
+                <span>{character.race}</span>
               </div>
               <hr></hr>
               <div className="side">
                 <span>Сторона</span>
-                <span>{character.dataPerson.side}</span>
+                <span>{character.side}</span>
               </div>
             </div>
             <div className="wrapper__paragraph">
-              <p className="description-character__paragraph">{character.dataPerson.description}</p>
+              <p className="description-character__paragraph">{character.description}</p>
             </div>
           </div>
           <div className="characteristic">

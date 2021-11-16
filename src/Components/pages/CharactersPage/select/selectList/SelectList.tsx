@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 
 import './SelectList.css';
+import { selectItem } from '../../../../../store/characterCards/cards.slice';
 import { DataSelectList } from '../../../../../store/dataSelectList/dataSelectList.slice';
-import { useAppSelector } from '../../../../../store/store';
+import { useAppSelector, useAppDispatch } from '../../../../../store/store';
 
 interface PropsItem {
   item: DataSelectList;
@@ -11,6 +12,7 @@ interface PropsItem {
 
 const SelectList: FC<PropsItem> = (props) => {
   const value = useAppSelector((state) => state.selectList.indexSelect);
+  const dispatch = useAppDispatch();
   const arrayItem: string[] = [];
   for (const key in props.item.selectList) {
     arrayItem.push(props.item.selectList[key]);
@@ -30,7 +32,15 @@ const SelectList: FC<PropsItem> = (props) => {
           return (
             <li key={index}>
               <label>
-                <input type="checkbox" className="input-options" id="" value={item}></input>
+                <input
+                  type="checkbox"
+                  className="input-options"
+                  id=""
+                  value={item}
+                  onClick={(event): void => {
+                    dispatch(selectItem({ item: item, check: event.currentTarget.checked }));
+                  }}
+                ></input>
                 {item}
               </label>
             </li>

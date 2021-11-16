@@ -20,22 +20,22 @@ const Cards: FC<{ item: Card; index: number }> = (props): React.ReactElement => 
     >
       <div className="character-picture" style={{ backgroundImage: `url(${props.item.background})` }}>
         <img src={props.item.img}></img>
-        <h1 style={{ color: props.item.person.titleColor }}>{props.item.person.title}</h1>
+        <h1 style={{ color: props.item.nameColor }}>{props.item.name}</h1>
       </div>
-      <div className="character-date" style={{ backgroundColor: props.item.dataPerson.color }}>
+      <div className="character-date" style={{ backgroundColor: props.item.characteristicsColor }}>
         <div className="gender">
           <span>Пол</span>
-          <span>{props.item.dataPerson.gender}</span>
+          <span>{props.item.gender}</span>
         </div>
         <hr></hr>
         <div className="race">
           <span>Раса</span>
-          <span>{props.item.dataPerson.race}</span>
+          <span>{props.item.race}</span>
         </div>
         <hr></hr>
         <div className="side">
           <span>Сторона</span>
-          <span>{props.item.dataPerson.side}</span>
+          <span>{props.item.side}</span>
         </div>
       </div>
     </div>

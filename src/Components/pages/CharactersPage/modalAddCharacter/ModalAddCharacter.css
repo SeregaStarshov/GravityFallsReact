@@ -5,6 +5,7 @@
     margin: 0 auto;
     padding: 21px 32px 38px 32px;
     background-color: #E8BD55;
+    position: relative;
 }
 .wrap-form__add-character {
     display: flex;
@@ -35,7 +36,7 @@
 .save {
     text-align: end;
 }
-.preview__button {
+.save__button {
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -45,6 +46,10 @@
     background: #494949;
     border-radius: 8px;
     border: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 44px;
+    right: 21px;
 }
 .container-characteristics {
     display: flex;
@@ -151,18 +156,29 @@
     height: 45px;
     background: #E8BD55;
     text-align: center;
+    position: relative;
+    cursor: pointer;
 }
 .vertical {
-    width: 18px;
+    width: 25px;
     height: 2px;
     border-radius: 2px;
     background: black;
+    display: block;
+    left: 25%;
+    transform: rotate(90deg);
+    position: absolute;
+    top: 50%;
 }
 .gorizontal {
-    width: 18px;
+    width: 25px;
     height: 2px;
     border-radius: 2px;
     background: black;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 25%;
 }
 .buttons-add {
     display: flex;
@@ -191,7 +207,7 @@
     border: none;
     cursor: pointer;
 }
-.save-button {
+.save-button-img {
     background: #494949;
     border-radius: 8px;
     font-style: normal;
@@ -203,4 +219,32 @@
     border: none;
     cursor: pointer;
     color: #E8BD55;
+}
+.choice-color {
+
+}
+.choice-color__title {
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 15px;
+    color: #494949;
+}
+.color-input {
+    width: 50px;
+    height: 30px;
+    margin-right: 12px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    padding: 0;
+    border: none;
+    margin-bottom: 6px;
+}
+.choice-color-input {
+    display: flex;
+    align-items: center;
+}
+.add-photo-hidden {
+    opacity: 0;
 }

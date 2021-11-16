@@ -1,10 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import './CharactersPage.css';
-import { useHistory, useParams } from 'react-router-dom';
+// import { useHistory, useParams } from 'react-router-dom';
 
 import Icon from '../../../images/Icon.png';
-import { closeSelectList } from '../../../store/dataSelectList/dataSelectList.slice';
+import {
+  returnInitialState,
+  changeStateOnFilter,
+  outputCardsFromInput,
+  Card,
+  addCardsFromInput,
+} from '../../../store/characterCards/cards.slice';
+import { closeSelectList, List } from '../../../store/dataSelectList/dataSelectList.slice';
 import { useAppDispatch, useAppSelector } from '../../../store/store';
 
 import CreateButtonAdd from './addBtn/ButtonAdd';
@@ -17,16 +24,57 @@ import CreateSelect from './select/Select';
 import SelectList from './select/selectList/SelectList';
 
 const CreateCharactersPage: FC = (): React.ReactElement => {
-  // const history = useHistory();
-  // const params = useParams();
-  // // console.log(history);
-  // // console.log(params);
   const dispatch = useAppDispatch();
   const dataCards = useAppSelector((state) => state.cards.dataCards);
+  const arrayCheckedInputs = useAppSelector((state) => state.cards.arrayCheckedInputs);
+  const filterCards = useAppSelector((state) => state.cards.filterCards);
+  const valueInput = useAppSelector((state) => state.cards.valueInput);
+  const cardsFromInput = useAppSelector((state) => state.cards.cardsFromInput);
   const selectList = useAppSelector((state) => state.selectList.data);
   const start = useAppSelector((state) => state.cards.startIndex);
   const end = useAppSelector((state) => state.cards.endIndex);
   const newDataCards = dataCards.slice(start, end);
+
+  useEffect(() => {
+    if (arrayCheckedInputs.length === 0) {
+      dispatch(returnInitialState());
+    }
+    if (arrayCheckedInputs.length !== 0) {
+      dispatch(changeStateOnFilter());
+    }
+  }, [arrayCheckedInputs, filterCards]);
+
+  useEffect(() => {
+    const searchCardsFromValueInput = (): void => {
+      dataCards.forEach((item) => {
+        for (const key in item) {
+          if (item[key] === valueInput[0]) {
+            dispatch(addCardsFromInput(item));
+          }
+        }
+      });
+    };
+    if (valueInput.length !== 0) {
+      searchCardsFromValueInput();
+    }
+  }, [valueInput]);
+
+  useEffect(() => {
+    const checkValueInputLength = (): void => {
+      valueInput.forEach((item) => {
+        if (item === '' || valueInput.length === 0) {
+          dispatch(returnInitialState());
+        }
+      });
+    };
+    checkValueInputLength();
+  }, [valueInput]);
+
+  useEffect(() => {
+    if (cardsFromInput.length !== 0) {
+      dispatch(outputCardsFromInput());
+    }
+  }, [cardsFromInput]);
 
   return (
     <main className="characters-page" onClick={(): void => dispatch(closeSelectList())}>

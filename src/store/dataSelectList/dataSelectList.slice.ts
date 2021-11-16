@@ -88,7 +88,7 @@ export const outputSelectList = createSlice({
     },
     closeSelectList: (state) => {
       if (state.gender || state.rice || state.side) {
-        console.log('close');
+        // console.log('close');
       } else {
         return;
       }
