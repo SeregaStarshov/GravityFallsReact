@@ -2,18 +2,19 @@ import React, { FC } from 'react';
 
 import './PaginationBlock.css';
 
-import Next from '../../../../images/nextBtn.png';
-import Prev from '../../../../images/prevBtn.png';
+import Next from '../../images/nextBtn.png';
+import Prev from '../../images/prevBtn.png';
 
-import { nextAction, prevAction, clickPunkt, Card } from '../../../../store/characterCards/cards.slice';
+import { nextAction, prevAction, clickPunkt, Card } from '../../store/characterCards/cards.slice';
 
-import PaginationBtn from './PaginationBtn';
+import PaginationBtn from './paginationBtn/PaginationBtn';
 import PaginationPunkt from './paginationPunkt/PaginationPunkt';
 
 const PaginationBlock: FC<{ start: number; end: number; dataCards: Card[] }> = (props): React.ReactElement => {
   const start = props.start;
+  const MAX_QUANTITY_CARDS = 3;
   const arrPunkt: number[] = [];
-  for (let i = 0; i <= props.dataCards.length; i += 3) {
+  for (let i = 0; i <= props.dataCards.length; i += MAX_QUANTITY_CARDS) {
     arrPunkt.push(i);
   }
 

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
-import iconClose from '../../../../images/icon_close.png';
+import iconClose from '../../images/icon_close.png';
 
 import './ModalViewCharacter.css';
-import { closedModal } from '../../../../store/characterCards/cards.slice';
-import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import { closedModal } from '../../store/characterCards/cards.slice';
+import { useAppSelector, useAppDispatch } from '../../store/store';
 
 const ModalViewCharacter: FC = (): React.ReactElement => {
   const character = useAppSelector((state) => state.cards.modalCard);

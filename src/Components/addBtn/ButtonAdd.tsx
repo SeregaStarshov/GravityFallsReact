@@ -1,10 +1,12 @@
+import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 import React, { FC } from 'react';
 
 import './ButtonAdd.css';
-import { viewModalAddCharacter } from '../../../../store/characterCards/cards.slice';
-import { useAppDispatch } from '../../../../store/store';
+import { useAppDispatch } from '../../store/store';
 
-const CreateButtonAdd: FC<{ text: string }> = (props): React.ReactElement => {
+const CreateButtonAdd: FC<{ text: string; viewModalAddCharacter: ActionCreatorWithoutPayload<string> }> = (
+  props
+): React.ReactElement => {
   const dispatch = useAppDispatch();
   return (
     <button
@@ -13,7 +15,7 @@ const CreateButtonAdd: FC<{ text: string }> = (props): React.ReactElement => {
       value="ok"
       name="send"
       onClick={(): void => {
-        dispatch(viewModalAddCharacter());
+        dispatch(props.viewModalAddCharacter());
       }}
     >
       {props.text}

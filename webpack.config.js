@@ -10,7 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
     assetModuleFilename: "assets/images/[name].[ext]",
-    publicPath: '/',
+    publicPath: "/",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],

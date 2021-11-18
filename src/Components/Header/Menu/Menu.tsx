@@ -1,31 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import '../Menu/Menu.css';
 import { NavLink } from 'react-router-dom';
 
-interface Menu {
-  id: number;
-  value: string;
-  href: string;
-}
+import { Menu } from '../Header';
 
-const CreateMenu: React.FC = (): React.ReactElement => {
-  const menu: Menu[] = [
-    {
-      id: 1,
-      value: 'Главная',
-      href: '/',
-    },
-    {
-      id: 2,
-      value: 'Персонажи',
-      href: '/characters',
-    },
-  ];
-
+const CreateMenu: FC<{ menu: Menu[] }> = (props): React.ReactElement => {
   return (
     <div className="header__menu">
       <ul className="menu__list">
-        {menu.map((item) => {
+        {props.menu.map((item) => {
           return (
             <li key={item.id} className="menu-item">
               <NavLink className="menu-link" to={item.href}>

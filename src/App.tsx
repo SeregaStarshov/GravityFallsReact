@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Header from '../src/Components/Header/Header';
-import CreateHomePage from '../src/Components/pages/HomePage/HomePage';
+
 import logo from '../src/images/logo.png';
 
-import CreateCharactersPage from './Components/pages/CharactersPage/CharactersPage';
-import Cards from './Components/pages/CharactersPage/cards/Cards';
+import CreateCharactersPage from './pages/CharactersPage/CharactersPage';
+import CreateHomePage from './pages/HomePage/HomePage';
 
 const App: FC = (): React.ReactElement => {
   return (
@@ -33,7 +33,10 @@ const App: FC = (): React.ReactElement => {
             return <CreateCharactersPage />;
           }}
         />
-        <Route exact path="/characters:id" render={(): React.ReactElement => <CreateCharactersPage />} />
+        <Route exact path="/characters/:id">
+          <CreateCharactersPage />
+        </Route>
+        <Redirect to={'/'}></Redirect>
       </Switch>
     </>
   );

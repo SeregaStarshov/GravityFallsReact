@@ -1,21 +1,24 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import React, { FC } from 'react';
 
 import './Cards.css';
 
 import { useHistory } from 'react-router-dom';
 
-import { Card, viewModal } from '../../../../store/characterCards/cards.slice';
-import { useAppDispatch } from '../../../../store/store';
+import { Card } from '../../store/characterCards/cards.slice';
+import { useAppDispatch } from '../../store/store';
 
-const Cards: FC<{ item: Card; index: number }> = (props): React.ReactElement => {
+const Cards: FC<{ item: Card; index: number; viewModal: ActionCreatorWithPayload<Card, string> }> = (
+  props
+): React.ReactElement => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   return (
     <div
       className="character-card"
       onClick={(): void => {
-        history.push(`/characters:${props.item.id}`);
-        dispatch(viewModal(props.item));
+        dispatch(props.viewModal(props.item));
+        history.push(`/characters/${props.item.id}`);
       }}
     >
       <div className="character-picture" style={{ backgroundImage: `url(${props.item.background})` }}>

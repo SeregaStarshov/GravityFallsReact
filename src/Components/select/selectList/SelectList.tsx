@@ -1,17 +1,22 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import React, { FC } from 'react';
 
 import './SelectList.css';
-import { selectItem } from '../../../../../store/characterCards/cards.slice';
-import { DataSelectList } from '../../../../../store/dataSelectList/dataSelectList.slice';
-import { useAppSelector, useAppDispatch } from '../../../../../store/store';
+import { DataSelectList } from '../../../store/dataSelectList/dataSelectList.slice';
+import { useAppDispatch } from '../../../store/store';
 
-interface PropsItem {
+const SelectList: FC<{
   item: DataSelectList;
   index: number;
-}
-
-const SelectList: FC<PropsItem> = (props) => {
-  const value = useAppSelector((state) => state.selectList.indexSelect);
+  value: null;
+  selectItem: ActionCreatorWithPayload<
+    {
+      item: string;
+      check: boolean;
+    },
+    string
+  >;
+}> = (props) => {
   const dispatch = useAppDispatch();
   const arrayItem: string[] = [];
   for (const key in props.item.selectList) {
@@ -19,7 +24,7 @@ const SelectList: FC<PropsItem> = (props) => {
   }
   const viewSelectList = (): string => {
     let viewList = '';
-    if (props.index === value) {
+    if (props.index === props.value) {
       return (viewList = 'active options');
     } else {
       return (viewList = 'disable options');
@@ -38,7 +43,7 @@ const SelectList: FC<PropsItem> = (props) => {
                   id=""
                   value={item}
                   onClick={(event): void => {
-                    dispatch(selectItem({ item: item, check: event.currentTarget.checked }));
+                    dispatch(props.selectItem({ item: item, check: event.currentTarget.checked }));
                   }}
                 ></input>
                 {item}

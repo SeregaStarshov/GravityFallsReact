@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// import { current, iteratorSymbol } from 'immer/dist/internal';
-
 import ellipse from '../../images/Ellipse.png';
 import ellips_2 from '../../images/Ellipse_2.png';
 import ellips_3 from '../../images/Ellipse_3.png';
@@ -18,7 +16,6 @@ import shmebulok from '../../images/shmebulok.png';
 import stanly from '../../images/stanly.png';
 import vendri from '../../images/vendri.png';
 import zus from '../../images/zus.png';
-import { List } from '../dataSelectList/dataSelectList.slice';
 
 export interface Card {
   id: number;
@@ -246,10 +243,10 @@ const initialState: InitialState = {
   valueInput: [],
   cardsFromInput: [],
 };
-export type ActionInterface<Item> = {
-  type: string;
-  payload: Item;
-};
+// export type ActionInterface<Item> = {
+//   type: string;
+//   payload: Item;
+// };
 
 export const outputCards = createSlice({
   name: 'outputCards',
@@ -296,14 +293,6 @@ export const outputCards = createSlice({
             }
           }
         });
-
-        // state.dataCards = state.dataCards.filter((item) => {
-        //   for (const key in item.dataPerson) {
-        //     if (item.dataPerson[key] === action.payload.item) {
-        //       return item;
-        //     }
-        //   }
-        // });
       } else if (action.payload.check === false) {
         state.arrayCheckedInputs.forEach((item, index) => {
           if (item.item === action.payload.item) {

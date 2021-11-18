@@ -1,9 +1,12 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import React, { FC } from 'react';
 
-import { useAppDispatch } from '../../../../../store/store';
+import { useAppDispatch } from '../../../store/store';
 import './PaginationPunkt.css';
 
-const PaginationPunkt: FC<{ item: number; start: number; onclick: any }> = (props): React.ReactElement => {
+const PaginationPunkt: FC<{ item: number; start: number; onclick: ActionCreatorWithPayload<number, string> }> = (
+  props
+): React.ReactElement => {
   const dispatch = useAppDispatch();
   const defaultStyle: string = 'pagination-punkt';
   const activeStyle: string = 'pagination-punkt active-punkt';

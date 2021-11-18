@@ -1,29 +1,32 @@
 import React, { FC, useEffect } from 'react';
 
 import './CharactersPage.css';
-// import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
-import Icon from '../../../images/Icon.png';
+import CreateButtonAdd from '../../Components/addBtn/ButtonAdd';
+import Cards from '../../Components/cards/Cards';
+import CreateInput from '../../Components/input/Input';
+import PaginationBlock from '../../Components/pagination/PaginationBlock';
+import CreateSelect from '../../Components/select/Select';
+import SelectList from '../../Components/select/selectList/SelectList';
+import ModalAddCharacter from '../../core/modalAddCharacter/ModalAddCharacter';
+import ModalViewCharacter from '../../core/modalViewCharacter/ModalViewCharacter';
+import Icon from '../../images/Icon.png';
 import {
   returnInitialState,
   changeStateOnFilter,
   outputCardsFromInput,
-  Card,
   addCardsFromInput,
-} from '../../../store/characterCards/cards.slice';
-import { closeSelectList, List } from '../../../store/dataSelectList/dataSelectList.slice';
-import { useAppDispatch, useAppSelector } from '../../../store/store';
-
-import CreateButtonAdd from './addBtn/ButtonAdd';
-import Cards from './cards/Cards';
-import CreateInput from './input/Input';
-import ModalAddCharacter from './modalAddCharacter/ModalAddCharacter';
-import ModalViewCharacter from './modalViewCharacter/ModalViewCharacter';
-import PaginationBlock from './pagination/PaginationBlock';
-import CreateSelect from './select/Select';
-import SelectList from './select/selectList/SelectList';
+  viewModal,
+  viewModalAddCharacter,
+  changeInput,
+  selectItem,
+} from '../../store/characterCards/cards.slice';
+import { closeSelectList, gender, race, side } from '../../store/dataSelectList/dataSelectList.slice';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 
 const CreateCharactersPage: FC = (): React.ReactElement => {
+  const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const dataCards = useAppSelector((state) => state.cards.dataCards);
   const arrayCheckedInputs = useAppSelector((state) => state.cards.arrayCheckedInputs);
@@ -31,10 +34,12 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
   const valueInput = useAppSelector((state) => state.cards.valueInput);
   const cardsFromInput = useAppSelector((state) => state.cards.cardsFromInput);
   const selectList = useAppSelector((state) => state.selectList.data);
+  const value = useAppSelector((state) => state.selectList.indexSelect);
   const start = useAppSelector((state) => state.cards.startIndex);
   const end = useAppSelector((state) => state.cards.endIndex);
   const newDataCards = dataCards.slice(start, end);
-
+  const history = useHistory();
+  console.log(id);
   useEffect(() => {
     if (arrayCheckedInputs.length === 0) {
       dispatch(returnInitialState());
@@ -76,30 +81,46 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
     }
   }, [cardsFromInput]);
 
+  // useEffect(() => {
+  //   dataCards.forEach((item) => {
+  //     if (location.pathname === `/character/${id}`) {
+  //       console.log(item.id === Number(id));
+  //     }
+  //   });
+  // }, []);
+
   return (
     <main className="characters-page" onClick={(): void => dispatch(closeSelectList())}>
       <div className="container">
         <div className="form__wrapper">
           <form className="form__search-characters">
             <div className="form__search">
-              <CreateInput />
+              <CreateInput changeInput={changeInput} />
             </div>
             <div className="form__filter">
               {selectList.map((item, index) => {
                 return (
                   <>
-                    <SelectList key={index} item={item} index={index} />
-                    <CreateSelect key={item.id} icon={Icon} index={index} name={item.title} />
+                    <SelectList key={index} item={item} index={index} value={value} selectItem={selectItem} />
+                    <CreateSelect
+                      key={item.id}
+                      icon={Icon}
+                      index={index}
+                      name={item.title}
+                      gender={gender}
+                      race={race}
+                      side={side}
+                    />
                   </>
                 );
               })}
-              <CreateButtonAdd text={'Добавить  +'} />
+              <CreateButtonAdd text={'Добавить  +'} viewModalAddCharacter={viewModalAddCharacter} />
             </div>
           </form>
         </div>
         <div className="cards__container">
           {newDataCards.map((item, index) => {
-            return <Cards key={index} item={item} index={index} />;
+            return <Cards key={index} item={item} index={index} viewModal={viewModal} />;
           })}
         </div>
         <PaginationBlock start={start} end={end} dataCards={dataCards} />

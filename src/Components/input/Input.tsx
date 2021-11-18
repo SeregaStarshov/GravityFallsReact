@@ -1,10 +1,10 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import React, { FC } from 'react';
 
 import './Input.css';
-import { changeInput } from '../../../../store/characterCards/cards.slice';
-import { useAppDispatch } from '../../../../store/store';
+import { useAppDispatch } from '../../store/store';
 
-const CreateInput: FC = (): React.ReactElement => {
+const CreateInput: FC<{ changeInput: ActionCreatorWithPayload<string> }> = (props): React.ReactElement => {
   const dispatch = useAppDispatch();
   return (
     <input
@@ -13,7 +13,7 @@ const CreateInput: FC = (): React.ReactElement => {
       placeholder="Поиск"
       onChange={(event): void => {
         event.target.value = event.target.value.replace(/[^ ,А-яё]/gi, '');
-        dispatch(changeInput(event.target.value));
+        dispatch(props.changeInput(event.target.value));
       }}
     ></input>
   );

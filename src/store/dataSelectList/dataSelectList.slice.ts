@@ -14,7 +14,7 @@ export interface Data {
   data: DataSelectList[];
   indexSelect: null;
   gender: boolean;
-  rice: boolean;
+  race: boolean;
   side: boolean;
   closeSelectList: boolean;
 }
@@ -50,7 +50,7 @@ export const initialStateSelectList: Data = {
   ],
   indexSelect: null,
   gender: false,
-  rice: false,
+  race: false,
   side: false,
   closeSelectList: false,
 };
@@ -59,7 +59,7 @@ export const outputSelectList = createSlice({
   name: 'outputSelectList',
   initialState: initialStateSelectList,
   reducers: {
-    gender: (state, action) => {
+    gender: (state, action: PayloadAction<null>) => {
       if (!state.gender) {
         state.indexSelect = action.payload;
         state.gender = true;
@@ -68,16 +68,16 @@ export const outputSelectList = createSlice({
         state.gender = false;
       }
     },
-    rice: (state, action) => {
-      if (!state.rice) {
+    race: (state, action: PayloadAction<null>) => {
+      if (!state.race) {
         state.indexSelect = action.payload;
-        state.rice = true;
+        state.race = true;
       } else {
         state.indexSelect = null;
-        state.rice = false;
+        state.race = false;
       }
     },
-    side: (state, action) => {
+    side: (state, action: PayloadAction<null>) => {
       if (!state.side) {
         state.indexSelect = action.payload;
         state.side = true;
@@ -87,7 +87,7 @@ export const outputSelectList = createSlice({
       }
     },
     closeSelectList: (state) => {
-      if (state.gender || state.rice || state.side) {
+      if (state.gender || state.race || state.side) {
         // console.log('close');
       } else {
         return;
@@ -96,7 +96,7 @@ export const outputSelectList = createSlice({
   },
 });
 export const gender = outputSelectList.actions.gender;
-export const rice = outputSelectList.actions.rice;
+export const race = outputSelectList.actions.race;
 export const side = outputSelectList.actions.side;
 export const closeSelectList = outputSelectList.actions.closeSelectList;
 export default outputSelectList.reducer;

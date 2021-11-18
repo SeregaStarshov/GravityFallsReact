@@ -1,6 +1,6 @@
 .main {
     height: 100vh;
-    background-image: url('../../../images/bg_1.jpg');
+    background-image: url('../../images/bg_1.jpg');
     background-size: cover;
 }
 .container {
