@@ -36,6 +36,9 @@ const App: FC = (): React.ReactElement => {
         <Route exact path="/characters/:id">
           <CreateCharactersPage />
         </Route>
+        <Route exact path="/characters/new">
+          <CreateCharactersPage />
+        </Route>
         <Redirect to={'/'}></Redirect>
       </Switch>
     </>

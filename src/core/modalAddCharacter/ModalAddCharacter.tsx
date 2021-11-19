@@ -1,14 +1,18 @@
 import { Formik, Field, Form } from 'formik';
-import React, { FC } from 'react';
+import React, { EventHandler, FC, FormEventHandler, useRef } from 'react';
 
 import './ModalAddCharacter.css';
 import '../modalViewCharacter/ModalViewCharacter.css';
+import { useHistory } from 'react-router-dom';
+
 import iconClose from '../../images/icon_close.png';
 import { addCardNewCharacter, closedModal } from '../../store/characterCards/cards.slice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 
 const ModalAddCharacter: FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
+  const ref = useRef();
   const viewModal = useAppSelector((state) => state.cards.viewModalAddCharacter);
   const viewModalCharacter = (): string => {
     if (viewModal) {
@@ -24,12 +28,19 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
         switch (true) {
           case (event.target as HTMLElement).matches('.modal__background'):
             dispatch(closedModal());
+            history.replace('/characters');
             break;
         }
       }}
     >
       <div className="modal__add-character">
-        <div className="closed" onClick={(): void => dispatch(closedModal())}>
+        <div
+          className="closed"
+          onClick={(): void => {
+            dispatch(closedModal());
+            history.replace('/characters');
+          }}
+        >
           <img className="icon-closed" src={iconClose} alt="close"></img>
         </div>
         <div className="wrap-form__add-character">
@@ -74,9 +85,17 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                   <div className="description">
                     <div className="container-span">
                       <span className="text">Добавить описание</span>
-                      <span className="quantity">{`${initialValues.description.length}/100`}</span>
+                      <span className="quantity">{`${'description.length'}/100`}</span>
                     </div>
-                    <Field as="textarea" className="block-description" name="description" maxLength={100}></Field>
+                    <Field
+                      as="textarea"
+                      className="block-description"
+                      name="description"
+                      onChange={(event): void => {
+                        // console.log(event.currentTarget.value);
+                      }}
+                      maxLength={100}
+                    ></Field>
                   </div>
                   <div className="tags">
                     <div className="add-tags">

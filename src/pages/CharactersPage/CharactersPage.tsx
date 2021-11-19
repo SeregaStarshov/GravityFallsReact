@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import './CharactersPage.css';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import CreateButtonAdd from '../../Components/addBtn/ButtonAdd';
 import Cards from '../../Components/cards/Cards';
@@ -26,7 +26,6 @@ import { closeSelectList, gender, race, side } from '../../store/dataSelectList/
 import { useAppDispatch, useAppSelector } from '../../store/store';
 
 const CreateCharactersPage: FC = (): React.ReactElement => {
-  const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const dataCards = useAppSelector((state) => state.cards.dataCards);
   const arrayCheckedInputs = useAppSelector((state) => state.cards.arrayCheckedInputs);
@@ -39,6 +38,7 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
   const end = useAppSelector((state) => state.cards.endIndex);
   const newDataCards = dataCards.slice(start, end);
   const history = useHistory();
+  const { id } = useParams<{ id: string }>();
   console.log(id);
   useEffect(() => {
     if (arrayCheckedInputs.length === 0) {
@@ -81,13 +81,18 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
     }
   }, [cardsFromInput]);
 
-  // useEffect(() => {
-  //   dataCards.forEach((item) => {
-  //     if (location.pathname === `/character/${id}`) {
-  //       console.log(item.id === Number(id));
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    if (location.pathname !== '/characters') {
+      dataCards.forEach((item) => {
+        if (location.pathname === `/characters/${item.id}`) {
+          dispatch(viewModal(item));
+        }
+      });
+    }
+    if (location.pathname === '/characters/new') {
+      dispatch(viewModalAddCharacter());
+    }
+  }, []);
 
   return (
     <main className="characters-page" onClick={(): void => dispatch(closeSelectList())}>

@@ -6,10 +6,13 @@ import './ModalViewCharacter.css';
 import { closedModal } from '../../store/characterCards/cards.slice';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 
+import { useHistory } from 'react-router-dom';
+
 const ModalViewCharacter: FC = (): React.ReactElement => {
   const character = useAppSelector((state) => state.cards.modalCard);
   const dispatch = useAppDispatch();
   const viewModal = useAppSelector((state) => state.cards.modalView);
+  const history = useHistory();
   const viewModalCharacter = (): string => {
     if (viewModal) {
       return 'active';
@@ -24,6 +27,7 @@ const ModalViewCharacter: FC = (): React.ReactElement => {
         switch (true) {
           case (event.target as HTMLElement).matches('.modal__background'):
             dispatch(closedModal());
+            history.replace('/characters');
             break;
         }
       }}
