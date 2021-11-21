@@ -248,3 +248,6 @@
 .add-photo-hidden {
     opacity: 0;
 }
+.error {
+    color: red;
+}

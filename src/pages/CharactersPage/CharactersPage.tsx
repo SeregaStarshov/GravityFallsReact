@@ -38,8 +38,9 @@ const CreateCharactersPage: FC = (): React.ReactElement => {
   const end = useAppSelector((state) => state.cards.endIndex);
   const newDataCards = dataCards.slice(start, end);
   const history = useHistory();
-  const { id } = useParams<{ id: string }>();
-  console.log(id);
+  // console.log(useParams());
+  // const { id } = useParams<{ id: string }>();
+  // console.log(id);
   useEffect(() => {
     if (arrayCheckedInputs.length === 0) {
       dispatch(returnInitialState());

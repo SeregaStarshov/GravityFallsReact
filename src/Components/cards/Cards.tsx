@@ -22,7 +22,7 @@ const Cards: FC<{ item: Card; index: number; viewModal: ActionCreatorWithPayload
       }}
     >
       <div className="character-picture" style={{ backgroundImage: `url(${props.item.background})` }}>
-        <img src={props.item.img}></img>
+        <img src={props.item.img || props.item.url}></img>
         <h1 style={{ color: props.item.nameColor }}>{props.item.name}</h1>
       </div>
       <div className="character-date" style={{ backgroundColor: props.item.characteristicsColor }}>

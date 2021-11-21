@@ -11,6 +11,8 @@
 .character-picture {
     position: relative;
     background-size: cover;
+    width: 410px;
+    height: 374px;
 }
 .character-picture h1 {
     -webkit-text-stroke-color: black;

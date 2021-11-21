@@ -29,6 +29,7 @@ export interface Card {
   side: string;
   description?: string;
   tags?: string[];
+  url?: string;
 }
 interface Payload {
   item: string;

@@ -1,19 +1,53 @@
-import { Formik, Field, Form } from 'formik';
-import React, { EventHandler, FC, FormEventHandler, useRef } from 'react';
+import { Formik, Field, Form, useFormikContext } from 'formik';
+import React, { FC } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import * as Yup from 'yup';
 
 import './ModalAddCharacter.css';
 import '../modalViewCharacter/ModalViewCharacter.css';
-import { useHistory } from 'react-router-dom';
-
 import iconClose from '../../images/icon_close.png';
 import { addCardNewCharacter, closedModal } from '../../store/characterCards/cards.slice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 
+import DescriptionCharacter, { A } from '../modalViewCharacter/descriptionCharacter/DescriptionCharacter';
+
 const ModalAddCharacter: FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const ref = useRef();
   const viewModal = useAppSelector((state) => state.cards.viewModalAddCharacter);
+  const REQUIRED_FIELD = 'Обязательное поле';
+  const TYPE_ERROR = 'Ввод только Кирилицы';
+  const validation = Yup.object().shape({
+    name: Yup.string()
+      .trim()
+      .required(REQUIRED_FIELD)
+      .typeError(TYPE_ERROR)
+      .matches(/[ ,а-яё]+/gi, TYPE_ERROR),
+    gender: Yup.string()
+      .trim()
+      .required(REQUIRED_FIELD)
+      .typeError(TYPE_ERROR)
+      .matches(/[ ,а-яё]+/gi, TYPE_ERROR),
+    race: Yup.string()
+      .trim()
+      .required(REQUIRED_FIELD)
+      .typeError(TYPE_ERROR)
+      .matches(/[ ,а-яё]+/gi, TYPE_ERROR),
+    side: Yup.string()
+      .trim()
+      .required(REQUIRED_FIELD)
+      .typeError(TYPE_ERROR)
+      .matches(/[ ,а-яё]+/gi, TYPE_ERROR),
+    description: Yup.string()
+      .notRequired()
+      .typeError(TYPE_ERROR)
+      .matches(/[ ,а-яё]+/gi, TYPE_ERROR),
+    tags: Yup.string()
+      .notRequired()
+      .typeError(TYPE_ERROR)
+      .matches(/[ ,а-яё]+/gi, TYPE_ERROR),
+  });
   const viewModalCharacter = (): string => {
     if (viewModal) {
       return 'active';
@@ -54,48 +88,47 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                 description: '',
                 tags: '',
                 image: '',
-                nameColor: '#ffff',
-                characteristicsColor: '#ffff',
+                nameColor: '#036E94',
+                characteristicsColor: '#007CA8',
+                colorCharacteristic: '#ffffff',
                 url: '',
               }}
               onSubmit={(values): void => dispatch(addCardNewCharacter(values))}
+              validationSchema={validation}
             >
-              {({ initialValues }): React.ReactElement => (
+              {({ values, errors, touched, handleChange }): React.ReactElement => (
                 <Form action="#" id="add-character" className="form__add-character">
                   <div className="add-name">
                     <label className="label_add-name">
                       Добавить имя
                       <Field className="input-character input__add-name" type="text" name="name" />
+                      {errors.name && touched.name && <p className="error">{errors.name}</p>}
                     </label>
                   </div>
                   <div className="container-characteristics">
                     <label className="label-characteristic label-gender">
                       Пол
                       <Field className="input-character characteristic-gender" type="text" name="gender"></Field>
+                      {errors.gender && touched.gender && <p className="error">{errors.gender}</p>}
                     </label>
                     <label className="label-characteristic label-rice">
                       Раса
                       <Field className="input-character characteristic-rice" type="text" name="race"></Field>
+                      {errors.race && touched.race && <p className="error">{errors.race}</p>}
                     </label>
                     <label className="label-characteristic label-side">
                       Сторона
                       <Field className="input-character characteristic-side" type="text" name="side"></Field>
+                      {errors.side && touched.side && <p className="error">{errors.side}</p>}
                     </label>
                   </div>
                   <div className="description">
                     <div className="container-span">
                       <span className="text">Добавить описание</span>
-                      <span className="quantity">{`${'description.length'}/100`}</span>
+                      <span className="quantity">{`${values.description.length}/100`}</span>
                     </div>
-                    <Field
-                      as="textarea"
-                      className="block-description"
-                      name="description"
-                      onChange={(event): void => {
-                        // console.log(event.currentTarget.value);
-                      }}
-                      maxLength={100}
-                    ></Field>
+                    <Field as="textarea" className="block-description" name="description" maxLength={100}></Field>
+                    {errors.description && touched.description && <p className="error">{errors.description}</p>}
                   </div>
                   <div className="tags">
                     <div className="add-tags">
@@ -103,11 +136,12 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                       <span className="quantity">0/3</span>
                     </div>
                     <Field className="field-tags" name="tags" as="textarea"></Field>
+                    {errors.tags && touched.tags && <p className="error">{errors.tags}</p>}
                   </div>
                   <div className="container__photo-color">
                     <div className="photo">
                       <span className="text">Добавить фото</span>
-                      <div className="">
+                      <div className="wrap-photo" style={{ backgroundImage: `url(${values.url})` }}>
                         <label className="add-photo">
                           <div className="add">
                             <span className="vertical"></span>
@@ -142,7 +176,7 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                       </div>
                       <div className="color-characteristic">
                         <label className="label-characteristic choice-color-input">
-                          <Field type="color" name="" className="color-input"></Field>
+                          <Field type="color" name="colorCharacteristic" className="color-input"></Field>
                           Цвет параметров
                         </label>
                       </div>
@@ -159,7 +193,9 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
           </div>
           <div className="preview__card-character">
             <h4 className="preview__title">Предварительный просмотр</h4>
-            <div className="preview__card"></div>
+            <div className="preview__card">
+              <A />
+            </div>
           </div>
         </div>
       </div>
