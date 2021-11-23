@@ -27,11 +27,12 @@
 }
 .preview__card {
     width: 457px;
-    height: 296px;
+    min-height: 296px;
     background-color: #FFFFFF;
     filter: drop-shadow(0px 2px 15px rgba(132, 95, 7, 0.6));
     margin-bottom: 151px;
     border-radius: 8px;
+    padding: 15px;
 }
 .save {
     text-align: end;

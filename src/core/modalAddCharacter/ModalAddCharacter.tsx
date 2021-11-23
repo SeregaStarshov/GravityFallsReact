@@ -1,4 +1,4 @@
-import { Formik, Field, Form, useFormikContext } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -10,7 +10,21 @@ import iconClose from '../../images/icon_close.png';
 import { addCardNewCharacter, closedModal } from '../../store/characterCards/cards.slice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 
-import DescriptionCharacter, { A } from '../modalViewCharacter/descriptionCharacter/DescriptionCharacter';
+import DescriptionCharacter from '../modalViewCharacter/descriptionCharacter/DescriptionCharacter';
+
+export interface Values {
+  name: string;
+  gender: string;
+  race: string;
+  side: string;
+  description: string;
+  tags: string;
+  image: string;
+  nameColor: string;
+  backgroundСolorCharacteristic: string;
+  colorCharacteristic: string;
+  url: string;
+}
 
 const ModalAddCharacter: FC = (): React.ReactElement => {
   const dispatch = useAppDispatch();
@@ -77,26 +91,26 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
         >
           <img className="icon-closed" src={iconClose} alt="close"></img>
         </div>
-        <div className="wrap-form__add-character">
-          <div className="wrap-fields__add-character">
-            <Formik
-              initialValues={{
-                name: '',
-                gender: '',
-                race: '',
-                side: '',
-                description: '',
-                tags: '',
-                image: '',
-                nameColor: '#036E94',
-                characteristicsColor: '#007CA8',
-                colorCharacteristic: '#ffffff',
-                url: '',
-              }}
-              onSubmit={(values): void => dispatch(addCardNewCharacter(values))}
-              validationSchema={validation}
-            >
-              {({ values, errors, touched, handleChange }): React.ReactElement => (
+        <Formik
+          initialValues={{
+            name: '',
+            gender: '',
+            race: '',
+            side: '',
+            description: '',
+            tags: '',
+            image: '',
+            nameColor: '#036E94',
+            backgroundСolorCharacteristic: '#007CA8',
+            colorCharacteristic: '#ffffff',
+            url: '',
+          }}
+          onSubmit={(values): void => dispatch(addCardNewCharacter(values))}
+          validationSchema={validation}
+        >
+          {({ values, errors, touched }): React.ReactElement => (
+            <div className="wrap-form__add-character">
+              <div className="wrap-fields__add-character">
                 <Form action="#" id="add-character" className="form__add-character">
                   <div className="add-name">
                     <label className="label_add-name">
@@ -133,7 +147,9 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                   <div className="tags">
                     <div className="add-tags">
                       <span className="text">Добавить теги</span>
-                      <span className="quantity">0/3</span>
+                      <span className="quantity">
+                        {values.tags !== '' ? `${values.tags.split(', ', 3).length}/3` : '0/3'}
+                      </span>
                     </div>
                     <Field className="field-tags" name="tags" as="textarea"></Field>
                     {errors.tags && touched.tags && <p className="error">{errors.tags}</p>}
@@ -141,13 +157,20 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                   <div className="container__photo-color">
                     <div className="photo">
                       <span className="text">Добавить фото</span>
-                      <div className="wrap-photo" style={{ backgroundImage: `url(${values.url})` }}>
-                        <label className="add-photo">
+                      <div className="wrap-photo">
+                        <label className="add-photo" style={{ backgroundImage: `url(${values.url || values.image})` }}>
                           <div className="add">
                             <span className="vertical"></span>
                             <span className="gorizontal"></span>
                           </div>
-                          <Field type="file" name="image" className="add-photo-hidden"></Field>
+                          <Field
+                            type="file"
+                            name="image"
+                            className="add-photo-hidden"
+                            onChange={(values): void => {
+                              console.log(values);
+                            }}
+                          ></Field>
                           <Field className="url__add-photo" type="url" name="url" placeholder="URL изображения"></Field>
                         </label>
                       </div>
@@ -155,7 +178,13 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                         <button type="button" className="change-button">
                           Изменить
                         </button>
-                        <button type="button" className="save-button-img">
+                        <button
+                          type="button"
+                          className="save-button-img"
+                          // onClick={(values): void => {
+                          //   console.log(values.target);
+                          // }}
+                        >
                           Сохранить
                         </button>
                       </div>
@@ -170,7 +199,7 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                       </div>
                       <div className="color-background-characteristic">
                         <label className="label-characteristic choice-color-input">
-                          <Field type="color" name="characteristicsColor" className="color-input"></Field>
+                          <Field type="color" name="backgroundСolorCharacteristic" className="color-input"></Field>
                           Цвет фона параметров
                         </label>
                       </div>
@@ -188,16 +217,24 @@ const ModalAddCharacter: FC = (): React.ReactElement => {
                     </button>
                   </div>
                 </Form>
-              )}
-            </Formik>
-          </div>
-          <div className="preview__card-character">
-            <h4 className="preview__title">Предварительный просмотр</h4>
-            <div className="preview__card">
-              <A />
+              </div>
+              <div className="preview__card-character">
+                <h4 className="preview__title">Предварительный просмотр</h4>
+                <div
+                  className="preview__card"
+                  style={{
+                    backgroundImage: `url(${values.url})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                    backgroundPositionX: 'right',
+                  }}
+                >
+                  <DescriptionCharacter character={values} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </Formik>
       </div>
     </div>
   );
